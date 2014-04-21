@@ -1,11 +1,20 @@
 <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
 <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
 <service-group>
-  <name replace-wildcards="yes"><%= mdns_service_name -%></name>
+  <name replace-wildcards="yes"><%= @mdns_service_name -%></name>
   <service>
-    <type><%= mdns_service_type -%></type>
-    <port><%= mdns_service_port -%></port>
-<% mdns_service_txt.each do |txt| -%>
+    <type><%= @mdns_service_type -%></type>
+<% @mdns_service_subtype.each do |subtype| -%>
+    <subtype><%= subtype -%></subtype>
+<% end -%>
+<% unless @mdns_service_domainname.nil? -%>
+    <domain-name><%= @mdns_service_domainname %></domain-name>
+<% end -%>
+<% unless @mdns_service_hostname.nil? -%>
+    <host-name><%= @mdns_service_hostname %></host-name>
+<% end -%>
+    <port><%= @mdns_service_port -%></port>
+<% @mdns_service_txt.each do |txt| -%>
     <txt-record><%= txt -%></txt-record>
 <% end -%>
   </service>

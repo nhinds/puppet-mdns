@@ -15,6 +15,16 @@
 #   $txt:
 #     An array of txt records to store with the service record
 #     Defaults to no txt records
+#   $subtype:
+#     An array of additional mdns subtypes for the service
+#     Defaults to no additional subtypes
+#   $domainname:
+#     The domain name this service should be registered under
+#     Defaults to the default domain of the avahi daemon (.local)
+#   $hostname:
+#     The host name of the host that provides this service.
+#     This should be a fully-qualified hostname
+#     Defaults to the current host
 #
 # Actions:
 #   Creates a service file named with the name passed in
@@ -37,13 +47,19 @@
 define mdns::service (
   $type,
   $port,
-  $txt=[]
+  $txt=[],
+  $subtype=[],
+  $domainname=undef,
+  $hostname=undef
   ){
 
   $mdns_service_name = $name
   $mdns_service_type = $type
   $mdns_service_port = $port
   $mdns_service_txt  = $txt
+  $mdns_service_subtype  = $subtype
+  $mdns_service_domainname  = $domainname
+  $mdns_service_hostname  = $hostname
 
   include mdns
 
